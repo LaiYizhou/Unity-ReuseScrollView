@@ -31,23 +31,7 @@ Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本
 
 - 第三步：自定义 `ReuseItemData.cs` 数据 和 `UpdateSetDataToItem()` 方法
 
-  示例：
-
-  ```c#
-  public class ReuseItemData : MonoBehaviour
-  {
-      // for example
-      [HideInInspector] public string Id;
-      [HideInInspector] public string Name;
-  
-      public ReuseItemData(string id, string name)
-      {
-          this.Id = id;
-          this.Name = name;
-      }
-  
-  }
-  ```
+  示例 详见代码
 
 - 第四步：调用 `BuildContent()` 即可
 
@@ -55,32 +39,8 @@ Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本
   void BuildContent(GameObject go, List<ReuseItemData> dataList, float spacing = 20.0f)
   ```
 
-  示例：
+  示例 详见 `Test.cs` 
 
-  ```c#
-  public class Test : MonoBehaviour
-  {
-  
-      [SerializeField] private ReuseScrollView reuseScrollView;
-      [SerializeField] private GameObject itemObject;
-      
-      void Start () {
-          List<ReuseItemData> list = new List<ReuseItemData>()
-          {
-              new ReuseItemData("001", "Alice"),
-              new ReuseItemData("002", "Bob"),
-              new ReuseItemData("003", "Candy"),
-              new ReuseItemData("004", "David"),
-              new ReuseItemData("005", "Eric"),
-              new ReuseItemData("006", "Fread"),
-              new ReuseItemData("007", "Lobby"),
-              new ReuseItemData("008", "Momo")
-          };
-         
-          reuseScrollView.BuildContent(itemObject, list);
-      }
-  }
-  ```
 
 #### 3. Demo及题外话
 
