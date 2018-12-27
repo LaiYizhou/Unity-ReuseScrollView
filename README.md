@@ -1,7 +1,7 @@
 # Unity-ReuseScrollView
 Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本，Add即用，无需继承**）
 
-#### 1. 简介
+### 1. 简介
 
 在Unity3D中，使用ScrollView时，会生成一系列子物体进行滑动
 
@@ -17,7 +17,7 @@ Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本
 
 脚本 `ReuseScrollView.cs`、`ReuseItem.cs`、 `ReuseItemData.cs`   则可以实现此功能。
 
-#### 2. 建议用法
+### 2. 建议用法
 
 - 第一步：将 `ReuseScrollView.cs` 挂在ScrollView上
 
@@ -41,8 +41,7 @@ Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本
 
   示例 详见 `Test.cs` 
 
-
-#### 3. Demo及题外话
+### 3. Demo及题外话
 
 ![demo](Image/demo.gif)
 
