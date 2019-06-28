@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-
     [SerializeField] private ReuseScrollView reuseScrollView;
-    [SerializeField] private GameObject itemObject;
-    
-    void Start () {
+    [SerializeField] private GameObject prefab;
+
+    [SerializeField] private InputField inputField;
+    [SerializeField] private Button button;
+
+	void Start ()
+    {
 
         List<ReuseItemData> list = new List<ReuseItemData>()
         {
-            new ReuseItemData("001", "Alice"),
-            new ReuseItemData("002", "Bob"),
-            new ReuseItemData("003", "Candy"),
-            new ReuseItemData("004", "David"),
-            new ReuseItemData("005", "Eric"),
-            new ReuseItemData("006", "Fread"),
-            new ReuseItemData("007", "Lobby"),
-            new ReuseItemData("008", "Momo")
+            new ReuseItemData("001", "Soil"),
+            new ReuseItemData("002", "Sunshine"),
+            new ReuseItemData("003", "Water"),
+            new ReuseItemData("004", "Fertilizer"),
+            new ReuseItemData("005", "Wheat"),
+            new ReuseItemData("006", "Corn"),
+            new ReuseItemData("007", "Soybean"),
+            new ReuseItemData("008", "Sugarcane"),
+            new ReuseItemData("009", "Egg"),
+            new ReuseItemData("010", "Carrot"),
+
         };
-       
-        reuseScrollView.BuildContent(itemObject, list);
+        reuseScrollView.BuildContent(prefab, list);
+
+        button.onClick.AddListener(OnButtonClicked);
+
+	}
+
+    private void OnButtonClicked()
+    {
+        int index = 0;
+        if (int.TryParse(inputField.text, out index))
+        {
+            reuseScrollView.Nevigate(index);
+        }
     }
 	
 	

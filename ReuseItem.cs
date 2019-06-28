@@ -5,7 +5,7 @@
 public class ReuseItem : MonoBehaviour {
 
     private RectTransform rectTransform;
-    [HideInInspector] public int DataIndex = -1;
+    public int DataIndex = -1;
 
     void Awake()
     {

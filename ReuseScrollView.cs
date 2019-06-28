@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,7 @@ public enum Direction
 public class ReuseScrollView : MonoBehaviour {
 
     public Direction ScrollDirection;
-    public float Spacing = 20.0f;
-
+    
     private GameObject itemObject;
     private RectTransform rectTransform;
     private ScrollRect scrollRect;
@@ -22,10 +22,14 @@ public class ReuseScrollView : MonoBehaviour {
     private readonly LinkedList<ReuseItem> itemsLinkedList = new LinkedList<ReuseItem>();
     private List<ReuseItemData> itemDataList = new List<ReuseItemData>();
 
+    public static float Spacing;
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         scrollRect = GetComponent<ScrollRect>();
+
+        scrollRect.horizontal = ScrollDirection == Direction.Horizontal;
+        scrollRect.vertical = ScrollDirection == Direction.Vertical;
 
         RectTransform contentRectTransform = scrollRect.content.GetComponent<RectTransform>();
         if (ScrollDirection == Direction.Vertical)
@@ -44,11 +48,35 @@ public class ReuseScrollView : MonoBehaviour {
         scrollRect.onValueChanged.AddListener(OnScrolled);
     }
 
+    public void Nevigate(int index)
+    {
+        if(index < 0 || index >= itemDataList.Count)
+            return;
+
+        Vector2 target;
+        if (ScrollDirection == Direction.Vertical)
+        {
+            float offset = (index - 1) * (GetItemSize() + Spacing) + GetItemSize() * (1 - itemObject.GetComponent<RectTransform>().pivot.y);
+            offset -= scrollRect.viewport.rect.height * 0.5f;
+            target = new Vector2(0.0f, Mathf.Clamp01(1 - offset / (scrollRect.content.rect.height - scrollRect.viewport.rect.height)));
+        }
+        else
+        {
+            float offset = (index - 1) * (GetItemSize() + Spacing) + GetItemSize() * (1 - itemObject.GetComponent<RectTransform>().pivot.x);
+            offset -= scrollRect.viewport.rect.width * 0.5f;
+            target = new Vector2(Mathf.Clamp01(offset / (scrollRect.content.rect.width - scrollRect.viewport.rect.width)), 0.0f);
+        }
+
+        DOTween.To(() => scrollRect.normalizedPosition, x => scrollRect.normalizedPosition = x, target, 1.0f);
+
+    }
+
     public void BuildContent(GameObject go, List<ReuseItemData> dataList, float spacing = 20.0f)
     {
         this.itemObject = go;
         itemDataList = dataList;
-        this.Spacing = spacing;
+
+        Spacing = spacing;
 
         ReloadData();
     }
@@ -226,9 +254,9 @@ public class ReuseScrollView : MonoBehaviour {
     private float GetItemSize()
     {
         if (ScrollDirection == Direction.Vertical)
-            return itemObject.GetComponent<RectTransform>().rect.size.y;
+            return itemObject.GetComponent<RectTransform>().rect.height;
         else
-            return itemObject.GetComponent<RectTransform>().rect.size.x;
+            return itemObject.GetComponent<RectTransform>().rect.width;
     }
 
     private float ActiveHeadEdge

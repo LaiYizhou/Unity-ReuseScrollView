@@ -1,4 +1,5 @@
 # Unity-ReuseScrollView
+
 Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本，Add即用，无需继承**）
 
 ### 1. 简介
@@ -49,3 +50,37 @@ Unity3D使用ScrollView时，实现Item内容循环重复使用（**简单版本
 
 1. https://assetstore.unity.com/packages/tools/gui/infinity-scrollview-for-ugui-67771
 2. https://assetstore.unity.com/packages/tools/gui/reusescroller-106279
+
+
+
+---
+***Update June 28, 2019***
+
+### 4. Nevigate功能
+
+由于Item是重复循环使用，无法指定某个Item定位，所以参数为 `index`
+
+调用 `Nevigate()` 即可
+
+```c#
+void Nevigate(int index)
+```
+
+
+- index：第index个数据（**从1开始**）
+
+- 为实现平滑移动定位效果，使用了**DoTween**插件
+
+- 如果需要 **非循环使用Item的scrollView**  实现Nevigate功能
+
+	可参照 <https://github.com/LaiYizhou/Unity-ScrollViewNevigation>
+	
+	   
+	
+	
+
+
+![vertical](Image/vertical.gif)
+
+![horizontal](Image/horizontal.gif)
+
