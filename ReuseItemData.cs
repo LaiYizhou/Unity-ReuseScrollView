@@ -16,7 +16,7 @@ public class ReuseItemData : MonoBehaviour
     }
 
     // for example
-    public void SetData(ReuseItemData data)
+    public void ShowData(ReuseItemData data)
     {
         Id = data.Id;
         Name = data.Name;
